@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { OpenCageSearch } from '.'
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(OpenCageSearch).toBeTruthy()
   })
 })

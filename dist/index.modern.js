@@ -1,13 +1,14 @@
 import React from 'react';
 
-var styles = {"test":"_3ybTi"};
+var styles = {"wrapper":"_styles-module__wrapper__1I_qj"};
 
-var ExampleComponent = function ExampleComponent(_ref) {
-  var text = _ref.text;
+const OpenCageSearch = ({
+  text
+}) => {
   return /*#__PURE__*/React.createElement("div", {
-    className: styles.test
-  }, "Example Component: ", text);
+    className: styles.wrapper
+  }, "OpenCage Data Geocoder Component: ", text);
 };
 
-export { ExampleComponent };
+export { OpenCageSearch };
 //# sourceMappingURL=index.modern.js.map

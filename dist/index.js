@@ -2,14 +2,14 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = _interopDefault(require('react'));
 
-var styles = {"test":"_3ybTi"};
+var styles = {"wrapper":"_styles-module__wrapper__1I_qj"};
 
-var ExampleComponent = function ExampleComponent(_ref) {
+var OpenCageSearch = function OpenCageSearch(_ref) {
   var text = _ref.text;
   return /*#__PURE__*/React.createElement("div", {
-    className: styles.test
-  }, "Example Component: ", text);
+    className: styles.wrapper
+  }, "OpenCage Data Geocoder Component: ", text);
 };
 
-exports.ExampleComponent = ExampleComponent;
+exports.OpenCageSearch = OpenCageSearch;
 //# sourceMappingURL=index.js.map
