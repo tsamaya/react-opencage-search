@@ -2,26 +2,33 @@
 
 > Opencage Data Geocoder component for React
 
-[![NPM](https://img.shields.io/npm/v/react-opencage-search.svg)](https://www.npmjs.com/package/react-opencage-search) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Build Status](https://travis-ci.com/tsamaya/react-opencage-search.svg?branch=main)](https://travis-ci.com/tsamaya/react-opencage-search)
+[![NPM](https://img.shields.io/npm/v/react-opencage-search.svg)](https://www.npmjs.com/package/react-opencage-search)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
+
+#### With `npm`
 
 ```bash
 npm install --save react-opencage-search
 ```
 
+#### With `yarn`
+
+```bash
+yarn add react-opencage-search
+```
+
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from 'react'
 
-import MyComponent from 'react-opencage-search'
-import 'react-opencage-search/dist/index.css'
+import OpenCageSearch from 'react-opencage-search'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+const App = () => {
+  return <OpenCageSearch />
 }
 ```
 

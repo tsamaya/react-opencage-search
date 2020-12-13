@@ -1,6 +1,6 @@
 import { OpenCageSearch } from '.'
 
-describe('ExampleComponent', () => {
+describe('OpenCageSearch', () => {
   it('is truthy', () => {
     expect(OpenCageSearch).toBeTruthy()
   })
