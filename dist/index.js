@@ -22,8 +22,6 @@ function _catch(body, recover) {
 	return result;
 }
 
-var styles = {"wrapper":"_styles-module__wrapper__1I_qj"};
-
 var OpenCageSearch = function OpenCageSearch(_ref) {
   var _ref$apiKey = _ref.apiKey,
       apiKey = _ref$apiKey === void 0 ? '6d0e711d72d74daeb2b0bfd2a5cdfdba' : _ref$apiKey,
@@ -34,14 +32,15 @@ var OpenCageSearch = function OpenCageSearch(_ref) {
       placeholder = _ref.placeholder,
       required = _ref.required,
       value = _ref.value,
+      label = _ref.label,
       _ref$searchOnBlur = _ref.searchOnBlur,
       searchOnBlur = _ref$searchOnBlur === void 0 ? true : _ref$searchOnBlur,
       _ref$searchOnKeyUp = _ref.searchOnKeyUp,
-      searchOnKeyUp = _ref$searchOnKeyUp === void 0 ? false : _ref$searchOnKeyUp;
+      searchOnKeyUp = _ref$searchOnKeyUp === void 0 ? false : _ref$searchOnKeyUp,
+      className = _ref.className;
 
-  var handleOnBlur = function handleOnBlur(e) {
+  var handleSearch = function handleSearch(e) {
     try {
-      console.log(e);
       var q = e.target.value;
       if (!q) return Promise.resolve();
 
@@ -52,9 +51,9 @@ var OpenCageSearch = function OpenCageSearch(_ref) {
         })).then(function (results) {
           console.log(results);
         });
-      }, function (error) {
+      }, function (err) {
         console.error('error from API', {
-          status: error.status.code
+          status: err.status.code
         });
       });
 
@@ -65,21 +64,25 @@ var OpenCageSearch = function OpenCageSearch(_ref) {
   };
 
   return /*#__PURE__*/React.createElement("div", {
-    className: styles.wrapper
-  }, /*#__PURE__*/React.createElement("input", {
+    "class": "opencage_geocoder_wrapper"
+  }, label && /*#__PURE__*/React.createElement("label", {
+    "class": "opencage_geocoder_label"
+  }, label), /*#__PURE__*/React.createElement("input", {
     id: id,
     name: name,
+    type: "text",
+    className: className,
     placeholder: placeholder,
     value: value,
     required: required,
     disabled: disabled,
     error: error,
     onBlur: function onBlur(e) {
-      if (searchOnBlur) handleOnBlur(e);
+      if (searchOnBlur) handleSearch(e);
     },
     onKeyUp: function onKeyUp(e) {
       if (searchOnKeyUp && (e.key === 'Enter' || e.keyCode === 13)) {
-        handleOnBlur(e);
+        handleSearch(e);
       }
     }
   }));

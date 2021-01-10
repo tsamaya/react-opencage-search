@@ -1,8 +1,6 @@
 import React from 'react';
 import opencage from 'opencage-api-client';
 
-var styles = {"wrapper":"_styles-module__wrapper__1I_qj"};
-
 const OpenCageSearch = ({
   apiKey: _apiKey = '6d0e711d72d74daeb2b0bfd2a5cdfdba',
   disabled,
@@ -12,11 +10,12 @@ const OpenCageSearch = ({
   placeholder,
   required,
   value,
+  label,
   searchOnBlur: _searchOnBlur = true,
-  searchOnKeyUp: _searchOnKeyUp = false
+  searchOnKeyUp: _searchOnKeyUp = false,
+  className
 }) => {
-  const handleOnBlur = async e => {
-    console.log(e);
+  const handleSearch = async e => {
     const q = e.target.value;
     if (!q) return;
 
@@ -26,29 +25,33 @@ const OpenCageSearch = ({
         key: _apiKey
       });
       console.log(results);
-    } catch (error) {
+    } catch (err) {
       console.error('error from API', {
-        status: error.status.code
+        status: err.status.code
       });
     }
   };
 
   return /*#__PURE__*/React.createElement("div", {
-    className: styles.wrapper
-  }, /*#__PURE__*/React.createElement("input", {
+    class: "opencage_geocoder_wrapper"
+  }, label && /*#__PURE__*/React.createElement("label", {
+    class: "opencage_geocoder_label"
+  }, label), /*#__PURE__*/React.createElement("input", {
     id: id,
     name: name,
+    type: "text",
+    className: className,
     placeholder: placeholder,
     value: value,
     required: required,
     disabled: disabled,
     error: error,
     onBlur: e => {
-      if (_searchOnBlur) handleOnBlur(e);
+      if (_searchOnBlur) handleSearch(e);
     },
     onKeyUp: e => {
       if (_searchOnKeyUp && (e.key === 'Enter' || e.keyCode === 13)) {
-        handleOnBlur(e);
+        handleSearch(e);
       }
     }
   }));
