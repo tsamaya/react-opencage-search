@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import opencage from 'opencage-api-client';
-import styles from './styles.module.css';
+// import styles from './styles.module.css';
 
 // eslint-disable-next-line import/prefer-default-export
 export const OpenCageSearch = ({
