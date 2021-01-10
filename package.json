@@ -19,6 +19,7 @@
     "test:build": "run-s build",
     "test:coverage": "react-scripts test --env=jsdom --coverage",
     "test:lint": "eslint .",
+    "test:lint:fix": "eslint --fix .",
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "predeploy": "cd example && yarn install && yarn run build",

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { OpenCageSearch } from 'react-opencage-search';
-import 'react-opencage-search/dist/index.css';
+// import 'react-opencage-search/dist/index.css';
 
 const OPENCAGE_API_KEY_TEST = '6d0e711d72d74daeb2b0bfd2a5cdfdba';
 
@@ -17,7 +17,7 @@ const App = () => {
           <div class="control">
             <input
               name="api_key"
-              class="input is-primary"
+              className="input is-primary"
               type="text"
               placeholder="Your API Key"
               value={apiKey}
