@@ -1,89 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import opencage from 'opencage-api-client';
 
-// A type of promise-like that resolves synchronously and supports only one observer
+const OpenCageSearch = ({
+  apiKey: _apiKey = '6d0e711d72d74daeb2b0bfd2a5cdfdba',
+  className,
+  disabled,
+  error,
+  id,
+  label,
+  name,
+  placeholder,
+  required,
+  searchOnBlur: _searchOnBlur = true,
+  searchOnKeyUp: _searchOnKeyUp = false,
+  value: _value = ''
+}) => {
+  const [search, setSearch] = useState('');
+  const [input, setInput] = useState(_value);
+  const [results, setResults] = useState([]);
 
-const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
+  const handleChange = e => {
+    setInput(e.target.value);
+  };
 
-const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
+  const handleSearch = async e => {
+    const q = e.target.value;
+    if (!q) return;
+    if (q === search) return;
 
-// Asynchronously call a function and send errors to recovery continuation
-function _catch(body, recover) {
-	try {
-		var result = body();
-	} catch(e) {
-		return recover(e);
-	}
-	if (result && result.then) {
-		return result.then(void 0, recover);
-	}
-	return result;
-}
-
-var OpenCageSearch = function OpenCageSearch(_ref) {
-  var _ref$apiKey = _ref.apiKey,
-      apiKey = _ref$apiKey === void 0 ? '6d0e711d72d74daeb2b0bfd2a5cdfdba' : _ref$apiKey,
-      disabled = _ref.disabled,
-      error = _ref.error,
-      name = _ref.name,
-      id = _ref.id,
-      placeholder = _ref.placeholder,
-      required = _ref.required,
-      value = _ref.value,
-      label = _ref.label,
-      _ref$searchOnBlur = _ref.searchOnBlur,
-      searchOnBlur = _ref$searchOnBlur === void 0 ? true : _ref$searchOnBlur,
-      _ref$searchOnKeyUp = _ref.searchOnKeyUp,
-      searchOnKeyUp = _ref$searchOnKeyUp === void 0 ? false : _ref$searchOnKeyUp,
-      className = _ref.className;
-
-  var handleSearch = function handleSearch(e) {
     try {
-      var q = e.target.value;
-      if (!q) return Promise.resolve();
-
-      var _temp2 = _catch(function () {
-        return Promise.resolve(opencage.geocode({
-          q: q,
-          key: apiKey
-        })).then(function (results) {
-          console.log(results);
-        });
-      }, function (err) {
-        console.error('error from API', {
-          status: err.status.code
-        });
+      const apiResults = await opencage.geocode({
+        q,
+        key: _apiKey
       });
-
-      return Promise.resolve(_temp2 && _temp2.then ? _temp2.then(function () {}) : void 0);
-    } catch (e) {
-      return Promise.reject(e);
+      setSearch(q);
+      setResults(apiResults);
+    } catch (err) {
+      console.error('Error from API', {
+        status: err.status.code
+      });
     }
   };
 
+  const handleSelect = a => {
+    setInput(a);
+    setResults([]);
+  };
+
   return /*#__PURE__*/React.createElement("div", {
-    "class": "opencage_geocoder_wrapper"
+    className: "opencage_geocoder_wrapper"
   }, label && /*#__PURE__*/React.createElement("label", {
-    "class": "opencage_geocoder_label"
-  }, label), /*#__PURE__*/React.createElement("input", {
+    className: "opencage_geocoder_label"
+  }, label, required ? ' *' : null), /*#__PURE__*/React.createElement("input", {
     id: id,
     name: name,
     type: "text",
     className: className,
     placeholder: placeholder,
-    value: value,
+    value: input,
     required: required,
     disabled: disabled,
     error: error,
-    onBlur: function onBlur(e) {
-      if (searchOnBlur) handleSearch(e);
+    onBlur: e => {
+      e.preventDefault();
+      if (_searchOnBlur) handleSearch(e);
     },
-    onKeyUp: function onKeyUp(e) {
-      if (searchOnKeyUp && (e.key === 'Enter' || e.keyCode === 13)) {
+    onChange: handleChange,
+    onKeyUp: e => {
+      e.preventDefault();
+
+      if (_searchOnKeyUp && (e.key === 'Enter' || e.keyCode === 13)) {
         handleSearch(e);
       }
     }
-  }));
+  }), results && results.results && results.results.length > 0 && /*#__PURE__*/React.createElement("ul", {
+    className: "opencage-geocoder-result-list"
+  }, results.results.map((res, idx) => /*#__PURE__*/React.createElement("li", {
+    key: idx,
+    className: "opencage-geocoder-result-element",
+    onClick: e => {
+      e.preventDefault();
+      handleSelect(res.formatted);
+    }
+  }, res.formatted))));
 };
 
 export { OpenCageSearch };
